@@ -8,8 +8,11 @@ import Home from './components/Home';
 import './App.css';
 
 function App() {
+  const [savedCountriesArray, setSavedCountriesArray] = useState([]);
   return (
-    <AuthContext.Provider>
+    <AuthContext.Provider
+      value={{ setSavedCountriesArray, savedCountriesArray }}
+    >
       <BrowserRouter>
         <Navbar />
         <Routes>

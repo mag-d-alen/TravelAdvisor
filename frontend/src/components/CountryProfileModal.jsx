@@ -1,12 +1,15 @@
 /** @format */
 
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import React, { useContext, useState, useEffect } from 'react';
+import AuthContext from '../context/AuthContext';
+
+import { Modal, Box, Typography, Button } from '@mui/material';
 import styled from '@emotion/styled';
 
 export default function CountryProfileModal(props) {
+  const { setSavedCountriesArray, savedCountriesArray } =
+    useContext(AuthContext);
+  const [countryAdded, setCountryAdded] = useState(false);
   const { open, handleClose, info } = props;
   const {
     area,
@@ -17,6 +20,23 @@ export default function CountryProfileModal(props) {
     hotspots,
   } = info;
 
+  useEffect(() => {
+    const isSaved = savedCountriesArray?.filter(
+      (country) => country.iataCode === area.iataCode
+    );
+    isSaved.length > 0 && setCountryAdded(true);
+  }, []);
+
+  const handleSaveCountry = () => {
+    const savedCountry = {
+      name: area.name,
+      risk: diseaseRiskLevel,
+      summary: summary.replace(/(<([^>]+)>)/gi, ''),
+      iataCode: area.iataCode,
+    };
+    setSavedCountriesArray((prevState) => [...prevState, savedCountry]);
+  };
+
   return (
     <Modal
       open={open}
@@ -25,12 +45,17 @@ export default function CountryProfileModal(props) {
       aria-describedby='modal-modal-description'
     >
       <StyledBox>
-        <StyledTitle id='modal-modal-title' variant='h6' component='h1'>
-          {area.name}
-        </StyledTitle>
-        <StyledTitle id='modal-modal-title' variant='h6' component='h2'>
-          disease Risk Level: {diseaseRiskLevel}
-        </StyledTitle>
+        <StyledDiv>
+          <StyledTitle id='modal-modal-title' variant='h6' component='h1'>
+            {area.name}
+          </StyledTitle>
+          <StyledTitle id='modal-modal-title' variant='h6' component='h2'>
+            disease Risk Level: {diseaseRiskLevel}
+          </StyledTitle>{' '}
+          <StyledButton onClick={handleSaveCountry} disabled={countryAdded}>
+            save country
+          </StyledButton>
+        </StyledDiv>
         <Typography id='modal-modal-description' sx={{ mt: 2 }}>
           {summary?.replace(/(<([^>]+)>)/gi, '')}
         </Typography>
@@ -47,7 +72,7 @@ export default function CountryProfileModal(props) {
         )}
         {areaRestrictions.map((restriction) => (
           <Typography
-            key={restriction.date}
+            key={Math.random()}
             id='modal-modal-description'
             sx={{ mt: 2 }}
           >
@@ -59,13 +84,28 @@ export default function CountryProfileModal(props) {
   );
 }
 const StyledBox = styled(Box)`
+  height: 80%;
   background-color: #ffffffce;
   padding: 2rem;
   margin: 4rem 3rem 10rem 4rem;
-  overflow: 'scroll';
+  overflow: scroll;
+`;
+const StyledDiv = styled('div')`
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
 `;
 const StyledTitle = styled(Typography)`
   display: flex;
   justify-content: center;
   text-transform: uppercase;
+`;
+const StyledButton = styled(Button)`
+  margin: 2rem auto;
+  color: white;
+  background-color: #ff6347d8;
+
+  &:hover {
+    background-color: #c9442cc5;
+  }
 `;
