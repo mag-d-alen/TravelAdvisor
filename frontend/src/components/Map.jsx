@@ -18,6 +18,7 @@ export default function Map() {
 
   const getCountryInfo = async (code) => {
     const token = await getToken();
+    console.log(token);
     const data = await axios.get(
       `${uri}duty-of-care/diseases/covid19-area-report?countryCode=${code}`,
       { headers: { Authorization: `Bearer ${token}` } }

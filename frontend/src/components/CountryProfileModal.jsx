@@ -3,13 +3,14 @@
 import React, { useContext, useState, useEffect } from 'react';
 import AuthContext from '../context/AuthContext';
 
-import { Modal, Box, Typography, Button } from '@mui/material';
+import { Modal, Box, Typography, Button, Alert } from '@mui/material';
 import styled from '@emotion/styled';
 
 export default function CountryProfileModal(props) {
   const { setSavedCountriesArray, savedCountriesArray } =
     useContext(AuthContext);
   const [countryAdded, setCountryAdded] = useState(false);
+  const [alert, setAlert] = useState(false);
   const { open, handleClose, info } = props;
   const {
     area,
@@ -21,10 +22,12 @@ export default function CountryProfileModal(props) {
   } = info;
 
   useEffect(() => {
-    const isSaved = savedCountriesArray?.filter(
-      (country) => country.iataCode === area.iataCode
-    );
-    isSaved.length > 0 && setCountryAdded(true);
+    savedCountriesArray.length > 0 &&
+      savedCountriesArray.forEach((country) => {
+        if (country.iataCode === area.iataCode) {
+          return setCountryAdded(true);
+        }
+      });
   }, []);
 
   const handleSaveCountry = () => {
@@ -35,6 +38,8 @@ export default function CountryProfileModal(props) {
       iataCode: area.iataCode,
     };
     setSavedCountriesArray((prevState) => [...prevState, savedCountry]);
+    setCountryAdded(true);
+    setAlert(true);
   };
 
   return (
@@ -51,10 +56,15 @@ export default function CountryProfileModal(props) {
           </StyledTitle>
           <StyledTitle id='modal-modal-title' variant='h6' component='h2'>
             disease Risk Level: {diseaseRiskLevel}
-          </StyledTitle>{' '}
+          </StyledTitle>
           <StyledButton onClick={handleSaveCountry} disabled={countryAdded}>
             save country
           </StyledButton>
+          {alert && (
+            <Alert severity='success'>
+              {area.name} has been successfully added to your countries
+            </Alert>
+          )}
         </StyledDiv>
         <Typography id='modal-modal-description' sx={{ mt: 2 }}>
           {summary?.replace(/(<([^>]+)>)/gi, '')}
