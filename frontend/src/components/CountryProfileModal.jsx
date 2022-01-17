@@ -4,10 +4,12 @@ import React, { useContext, useState, useEffect } from 'react';
 import AuthContext from '../context/AuthContext';
 import { Modal, Box, Typography, Button, Alert } from '@mui/material';
 import styled from '@emotion/styled';
+import axios from 'axios';
+
 
 export default function CountryProfileModal(props) {
-  const { setSavedCountriesArray, savedCountriesArray } =
-    useContext(AuthContext);
+  const token = JSON.parse(localStorage.getItem('token'));
+  const { setSavedCountriesArray, savedCountriesArray } = useContext(AuthContext);
   const [countryAdded, setCountryAdded] = useState(false);
   const [alert, setAlert] = useState(false);
   const { open, handleClose, info } = props;
@@ -30,12 +32,26 @@ export default function CountryProfileModal(props) {
   }, []);
 
   const handleSaveCountry = () => {
+    const isSaved = true;
     const savedCountry = {
       name: area.name,
       risk: diseaseRiskLevel,
       summary: summary.replace(/(<([^>]+)>)/gi, ''),
       iataCode: area.iataCode,
     };
+    const headerConfig = {
+      "auth-token": `${token}`,
+    };
+    const url = "http://localhost:8000/api/home/save";
+    axios
+      .put(url, {
+        savedCountry: savedCountry,
+        isSaved: isSaved
+      },{headers: headerConfig} )
+      .catch((err) => {
+       alert("couldn't save the country");
+       return
+      });
     setSavedCountriesArray((prevState) => [...prevState, savedCountry]);
     setCountryAdded(true);
     setAlert(true);

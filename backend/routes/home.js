@@ -20,7 +20,7 @@ router.put("/save", verify, async (req, res) => {
     if (req.body.isSaved === true) {
       updatedUser = await User.updateOne(
         { _id: req.user },
-        { $push: { savedCountries: req.body.country } }
+        { $push: { savedCountries: req.body.savedCountry } }
       );
     }
     if (req.body.isSaved === false) {
