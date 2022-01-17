@@ -53,7 +53,7 @@ export default function Map() {
   return (
     <>
       <MapContainer
-        style={{ height: '100vh' }}
+        style={{ height: '80vh', width: '50vw' }}
         center={[latitude, longitude]}
         zoom={2}
         scrollWheelZoom={true}

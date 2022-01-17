@@ -2,7 +2,6 @@
 
 import React, { useContext, useState, useEffect } from 'react';
 import AuthContext from '../context/AuthContext';
-
 import { Modal, Box, Typography, Button, Alert } from '@mui/material';
 import styled from '@emotion/styled';
 
