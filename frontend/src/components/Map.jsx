@@ -8,6 +8,7 @@ import getCountryISO2 from 'country-iso-3-to-2';
 import axios from 'axios';
 import getToken from '../utils/getAmadeusToken';
 import CountryProfileModal from './CountryProfileModal';
+import styled from '@emotion/styled';
 
 const uri = 'https://test.api.amadeus.com/v1/';
 
@@ -52,8 +53,7 @@ export default function Map() {
 
   return (
     <>
-      <MapContainer
-        style={{ height: '80vh', width: '50vw' }}
+      <StyledMapContainer
         center={[latitude, longitude]}
         zoom={2}
         scrollWheelZoom={true}
@@ -66,7 +66,7 @@ export default function Map() {
         <Marker position={[latitude, longitude]}>
           <Popup>you are here</Popup>
         </Marker>
-      </MapContainer>
+      </StyledMapContainer>
       {open && (
         <CountryProfileModal
           open={open}
@@ -77,3 +77,9 @@ export default function Map() {
     </>
   );
 }
+const StyledMapContainer = styled(MapContainer)`
+  height: 80vh;
+  width: 100%;
+  border-radius: 4px;
+  margin: 1rem;
+`;
