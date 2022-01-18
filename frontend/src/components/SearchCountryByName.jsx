@@ -50,11 +50,7 @@ export default function SearchCountryByName() {
     <>
       <StyledBox>
         <FormControl fullWidth>
-          <InputLabel
-            fullWidth
-            sx={{ m: 1 }}
-            htmlFor='outlined-adornment-amount'
-          >
+          <InputLabel sx={{ m: 1 }} htmlFor='outlined-adornment-amount'>
             Search Country by name
           </InputLabel>
           <OutlinedInput

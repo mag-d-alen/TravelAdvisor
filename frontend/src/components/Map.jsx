@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useLocation from '../hooks/useLocation';
 import { MapContainer, Popup, Marker, GeoJSON } from 'react-leaflet';
 import countries from '../data/countries.json';

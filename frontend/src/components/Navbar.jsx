@@ -2,46 +2,47 @@
 
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Button, IconButton, Toolbar, AppBar } from '@mui/material';
+import { Typography, Button, Toolbar, AppBar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { Menu as MenuIcon } from '@mui/icons-material';
+import styled from '@emotion/styled';
 
-const useStyles = makeStyles((theme) => ({
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
+const useStyles = makeStyles(() => ({
   title: {
+    padding: '0.5rem',
     flexGrow: 1,
+    textTransform: 'uppercase',
   },
 }));
 
-const Navbar = () => {
+export default function Navbar() {
   const classes = useStyles();
   const navigation = useNavigate();
-  const handleLogOut = () => {
-    navigation('./signup');
+  const handleNavigation = (route) => {
+    navigation(route);
   };
 
   return (
     <AppBar position='static' style={{ background: '#ff6347e3' }}>
       <Toolbar>
-        <IconButton
-          edge='start'
-          color='inherit'
-          aria-label='menu'
-          className={classes.menuButton}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography variant='h6' className={classes.title}>
+        <StyledButton onClick={() => handleNavigation('./')}>Home</StyledButton>
+        <StyledButton onClick={() => handleNavigation('./profile')}>
+          Profile
+        </StyledButton>
+        <Typography variant='h3' className={classes.title}>
           Travel Planner
         </Typography>
-        <Button color='inherit' onClick={handleLogOut}>
+        <StyledButton onClick={() => handleNavigation('./signup')}>
           Log Out
-        </Button>
+        </StyledButton>
       </Toolbar>
     </AppBar>
   );
-};
+}
+const StyledButton = styled(Button)`
+  color: white;
+  background-color: inherit;
 
-export default Navbar;
+  &:hover {
+    background-color: #c9442cc5;
+  }
+`;

@@ -15,7 +15,7 @@ export default function CountryCard(props) {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia component='img' height='140' alt={name} src={uri} />
+      <CardMedia component='img' height='140' alt='press photo' src={uri} />
       <CardContent>
         <StyledCard>
           <Typography gutterBottom variant='h4' component='div'>

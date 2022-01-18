@@ -40,7 +40,6 @@ const StyledBox = styled(Box)`
 const StyledOtherBox = styled(Box)`
   height: 100%;
   width: 40%;
-
   margin: 1rem;
   display: flex;
   flex-direction: column;
