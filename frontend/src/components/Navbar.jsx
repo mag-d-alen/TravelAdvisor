@@ -5,7 +5,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Toolbar, AppBar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-
+import HomeIcon from '@mui/icons-material/Home';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import LogoutIcon from '@mui/icons-material/Logout';
 const useStyles = makeStyles(() => ({
   title: {
     padding: '0.5rem',
@@ -24,15 +26,15 @@ export default function Navbar() {
   return (
     <AppBar position='static' style={{ background: '#ff6347e3' }}>
       <Toolbar>
-        <StyledButton onClick={() => handleNavigation('/')}>Home</StyledButton>
-        <StyledButton onClick={() => handleNavigation('/profile')}>
-          Saved Countries
-        </StyledButton>
-        <Typography variant='h3' className={classes.title}>
+
+        <Typography variant='h4' className={classes.title}>
           Travel Planner
         </Typography>
+        <StyledButton onClick={() => handleNavigation('/')}><HomeIcon /></StyledButton>
+        <StyledButton onClick={() => handleNavigation('/profile')}><AccountBoxIcon/></StyledButton>
+        
         <StyledButton onClick={() => handleNavigation('/login')}>
-          Log Out
+          <LogoutIcon />
         </StyledButton>
       </Toolbar>
     </AppBar>

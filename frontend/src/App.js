@@ -17,7 +17,7 @@ function App() {
     <AuthContext.Provider
       value={{
         setSavedCountriesArray: setSavedCountriesArray,
-        savedCountriesArray: savedCountriesArray,
+        savedCountriesArray: savedCountriesArray
       }}
     >
       <BrowserRouter>
