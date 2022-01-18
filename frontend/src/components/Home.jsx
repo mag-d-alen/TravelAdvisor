@@ -17,18 +17,19 @@ export default function Home() {
           <SearchCountryByName />
           <Map />
         </StyledBox>
-        <StyledBox2>
+        <StyledOtherBox>
           <NewsFeed />
-        </StyledBox2>
+        </StyledOtherBox>
       </StyledWrapper>
     </>
   );
 }
-const StyledWrapper = styled('Box')`
+const StyledWrapper = styled(Box)`
   display: flex;
-  height: 100vh;
+  height: 100;
 `;
-const StyledBox = styled('Box')`
+const StyledBox = styled(Box)`
+  height: 100%;
   width: 60%;
   padding: 1rem;
   margin: 1rem;
@@ -36,9 +37,10 @@ const StyledBox = styled('Box')`
   flex-direction: column;
   justify-content: center;
 `;
-const StyledBox2 = styled('Box')`
+const StyledOtherBox = styled(Box)`
+  height: 100%;
   width: 40%;
-  padding: 1rem;
+
   margin: 1rem;
   display: flex;
   flex-direction: column;

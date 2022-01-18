@@ -1,7 +1,7 @@
 /** @format */
 
 import React from 'react';
-import { Box, Typography, Paper } from '@mui/material';
+import { Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
