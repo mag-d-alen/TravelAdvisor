@@ -2,6 +2,9 @@
 
 import { createContext } from 'react';
 
-const AuthContext = createContext();
+const AuthContext = createContext({
+    savedCountriesArray: [],
+    setSavedCountriesArray: () => {}
+});
 
 export default AuthContext;

@@ -12,3 +12,8 @@
   color: #e14f4f;
   text-decoration: none;
 }
+
+.search{
+  z-index: 5;
+  
+}

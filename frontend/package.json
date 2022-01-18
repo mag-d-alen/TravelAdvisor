@@ -8,7 +8,6 @@
     "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.8",
-    "@react-navigation/native": "github:react-navigation/native",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",

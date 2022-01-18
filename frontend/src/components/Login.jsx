@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Grid, Paper, Avatar, TextField, Button } from '@mui/material'
 import LockOutlined from '@mui/icons-material/LockOutlined';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import AuthContext from '../context/AuthContext';
 
 
 export default function Login() {
@@ -25,9 +26,12 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const countryContext = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
    localStorage.clear();
+
   }, [])
 
   function handleEmailChange(event) {
@@ -45,9 +49,10 @@ export default function Login() {
           password: password,
         })
         .then((res) => {
-          console.log(res.data);
+          const countriesArray = res.data.user.savedCountries;
+          countryContext.setSavedCountriesArray(countriesArray)
           localStorage.setItem("token", JSON.stringify(res.data.token));
-          window.location.pathname = "/";
+          navigate('/'); 
         })
         .catch((error) => {
           alert(

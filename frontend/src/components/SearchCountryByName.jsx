@@ -47,7 +47,7 @@ export default function SearchCountryByName() {
   };
 
   return (
-    <>
+    <div className='search'>
       <StyledBox>
         <FormControl fullWidth>
           <InputLabel sx={{ m: 1 }} htmlFor='outlined-adornment-amount'>
@@ -88,7 +88,7 @@ export default function SearchCountryByName() {
           info={countryCovidInfo}
         />
       )}
-    </>
+    </div>
   );
 }
 const StyledBox = styled(Box)`

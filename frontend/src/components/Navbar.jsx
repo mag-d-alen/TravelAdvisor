@@ -24,14 +24,14 @@ export default function Navbar() {
   return (
     <AppBar position='static' style={{ background: '#ff6347e3' }}>
       <Toolbar>
-        <StyledButton onClick={() => handleNavigation('./')}>Home</StyledButton>
-        <StyledButton onClick={() => handleNavigation('./profile')}>
-          Profile
+        <StyledButton onClick={() => handleNavigation('/')}>Home</StyledButton>
+        <StyledButton onClick={() => handleNavigation('/profile')}>
+          Saved Countries
         </StyledButton>
         <Typography variant='h3' className={classes.title}>
           Travel Planner
         </Typography>
-        <StyledButton onClick={() => handleNavigation('./signup')}>
+        <StyledButton onClick={() => handleNavigation('/login')}>
           Log Out
         </StyledButton>
       </Toolbar>
