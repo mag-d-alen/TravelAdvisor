@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ChosenCountriesList from './ChosenCountriesList';
-import { Modal, Box, Typography, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import Navbar from './Navbar';
 

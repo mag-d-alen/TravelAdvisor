@@ -6,26 +6,23 @@ import { MapContainer, Popup, Marker, GeoJSON } from 'react-leaflet';
 import countries from '../data/countries.json';
 import getCountryISO2 from 'country-iso-3-to-2';
 import axios from 'axios';
-import getToken from '../utils/getAmadeusToken';
 import CountryProfileModal from './CountryProfileModal';
 import styled from '@emotion/styled';
-
-const uri = 'https://test.api.amadeus.com/v1/';
 
 export default function Map() {
   const [latitude, longitude] = useLocation();
   const [countryCovidInfo, setCountryCovidInfo] = useState();
   const [open, setOpen] = useState(false);
+  const uri = 'http://localhost:8000/api/api/country';
 
   const getCountryInfo = async (code) => {
-    const token = await getToken();
-    console.log(token);
-    const data = await axios.get(
-      `${uri}duty-of-care/diseases/covid19-area-report?countryCode=${code}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    setCountryCovidInfo(data.data.data);
-    setOpen(true);
+    try {
+      const countryData = await axios.get(`${uri}/${code}`);
+      setCountryCovidInfo(countryData.data);
+      setOpen(true);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const findCountryInfo = (e) => {
