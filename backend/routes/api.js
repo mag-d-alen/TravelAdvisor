@@ -2,15 +2,15 @@
 
 const router = require('express').Router();
 const verify = require('./verifyToken');
+const dotenv = require("dotenv");
+dotenv.config();
 const NEWS_KEY = process.env.NEWS_KEY;
-const AMADEUS_SECRET = 'giS1f8XyjPcdCXNT';
-const AMADEUS_KEY = 'pEaZjjEqBdwD50W6Yoo8V92WnA0VWAx4';
 const newsUri = `https://newsapi.org/v2/top-headlines?language=en&q=covid&sortBy=popularity&apiKey=45eef3aec94b4f2c9adc74833617e141`;
 const countryUri =
   'https://test.api.amadeus.com/v1/duty-of-care/diseases/covid19-area-report?countryCode=';
 const tokenUri = 'https://test.api.amadeus.com/v1/security/oauth2/token';
 
-const data = `grant_type=client_credentials&client_id=${AMADEUS_KEY}&client_secret=${AMADEUS_SECRET}`;
+const data = `grant_type=client_credentials&client_id=${process.env.AMADEUS_KEY}&client_secret=${process.env.AMADEUS_SECRET}`;
 
 const fetch = require('cross-fetch');
 const axios = require('axios');

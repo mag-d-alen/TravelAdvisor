@@ -8,33 +8,38 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
 import CountryProfileModal from './CountryProfileModal';
+import SearchIcon from '@mui/icons-material/Search';
 import getCountryISO2 from 'country-iso-3-to-2';
 import axios from 'axios';
 import getToken from '../utils/getAmadeusToken';
 import FormControl from '@mui/material/FormControl';
 import Divider from '@mui/material/Divider';
-const uri = 'https://test.api.amadeus.com/v1/';
+import Stack from '@mui/material/Stack';
+import Autocomplete from '@mui/material/Autocomplete';
+// const uri = 'https://test.api.amadeus.com/v1/';
 
 export default function SearchCountryByName() {
   const [search, setSearch] = useState('');
   const [countryCovidInfo, setCountryCovidInfo] = useState();
   const [open, setOpen] = useState(false);
-
-  // const data = countries.features.
+  const [searchResultsOpen, setSearchResultsOpen] = useState(false);
+  const uri = 'http://localhost:8000/api/api/country';
 
   const getCountryInfo = async (code) => {
-    const token = await getToken();
-    console.log(token);
-    const data = await axios.get(
-      `${uri}duty-of-care/diseases/covid19-area-report?countryCode=${code}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    setCountryCovidInfo(data.data.data);
-    setOpen(true);
+    try {
+      const countryData = await axios.get(`${uri}/${code}`);
+      setCountryCovidInfo(countryData.data);
+      setOpen(true);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const findCountryInfo = (e) => {
-    const countryCode = e;
+  const findCountryInfo = (value) => {
+    const code = countries.features.filter((val) => {  
+      if(val.properties.ADMIN.toLowerCase().includes(value.toLowerCase()))return val.properties.ISO_A3
+          })
+    const countryCode = code[0].properties.ISO_A3;
     console.log(countryCode);
     const iso2code = getCountryISO2(countryCode);
     getCountryInfo(iso2code);
@@ -50,37 +55,35 @@ export default function SearchCountryByName() {
 
   return (
     <div className='search'>
-      <StyledBox>
-        <TextField label= 'Search Country by name' color="warning" placeholder='Country name' variant="outlined"  fullWidth  value={search} onChange={(event) => handleChange(event)} />
+       <StyledBox>
+      <Stack spacing={2} fullWidth >
+      <Autocomplete
+        freeSolo
+        onChange={(event, value) => findCountryInfo(value)}
+        disableClearable
 
-        {countries.features
-          .filter((val) => {
-            if (search.length < 2) {
-              return null;
-            } else if (
-              val.properties.ADMIN.toLowerCase().includes(search.toLowerCase())
-            ) {
-              return val;
-            }
-          })
-          .map((val, key) => {
-            return (
-              <div className='search' key={key}>
-                <p className="search-result" onClick={(event) => findCountryInfo(val.properties.ISO_A3)}>
-                  {val.properties.ADMIN}
-                </p>
-                 <Divider />
-              </div>
-            );
-          })}
-      </StyledBox>
-      {open && (
+        options={countries.features.map((option) => option.properties.ADMIN)}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label='Search Country by name'
+             onChange={(event) => handleChange(event)}
+            color="warning"
+            InputProps={{
+              ...params.InputProps,
+              type: 'search',
+            }}
+          />
+        )}
+      />
+    </Stack>
+    </StyledBox>
+    {open && (
         <CountryProfileModal
           open={open}
           handleClose={handleClose}
           info={countryCovidInfo}
-        />
-      )}
+        />)}
     </div>
   );
 }
