@@ -6,11 +6,13 @@ import styled from '@emotion/styled';
 import countries from '../data/countries.json';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
+import TextField from '@mui/material/TextField';
 import CountryProfileModal from './CountryProfileModal';
 import getCountryISO2 from 'country-iso-3-to-2';
 import axios from 'axios';
 import getToken from '../utils/getAmadeusToken';
 import FormControl from '@mui/material/FormControl';
+import Divider from '@mui/material/Divider';
 const uri = 'https://test.api.amadeus.com/v1/';
 
 export default function SearchCountryByName() {
@@ -49,18 +51,8 @@ export default function SearchCountryByName() {
   return (
     <div className='search'>
       <StyledBox>
-        <FormControl fullWidth>
-          <InputLabel sx={{ m: 1 }} htmlFor='outlined-adornment-amount'>
-            Search Country by name
-          </InputLabel>
-          <OutlinedInput
-            id='outlined-adornment-amount'
-            // value={values.amount}
-            onChange={(event) => handleChange(event)}
-            value={search}
-            label='Amount'
-          />
-        </FormControl>
+        <TextField label= 'Search Country by name' color="warning" placeholder='Country name' variant="outlined"  fullWidth  value={search} onChange={(event) => handleChange(event)} />
+
         {countries.features
           .filter((val) => {
             if (search.length < 2) {
@@ -73,10 +65,11 @@ export default function SearchCountryByName() {
           })
           .map((val, key) => {
             return (
-              <div key={key}>
-                <p onClick={(event) => findCountryInfo(val.properties.ISO_A3)}>
+              <div className='search' key={key}>
+                <p className="search-result" onClick={(event) => findCountryInfo(val.properties.ISO_A3)}>
                   {val.properties.ADMIN}
                 </p>
+                 <Divider />
               </div>
             );
           })}

@@ -4,14 +4,16 @@ import LockOutlined from '@mui/icons-material/LockOutlined';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import AuthContext from '../context/AuthContext';
+import styled from '@emotion/styled';
+
 
 
 export default function Login() {
     const paperStyle = {
         padding: 40,
         height: "55vh",
-        width: "40vw",
-        margin: "20px auto",
+        width: "40vw", 
+        margin: " auto",
         display: "flex",
         flexDirection:  "column",
         justifyContent:  "space-between",
@@ -67,15 +69,26 @@ export default function Login() {
 
   }
     return (
-        <Grid>
+      <div className="registration">
+        <Grid >
             <Paper elevation={10} style={paperStyle}>
                 <Grid align='center'><Avatar style={avatarStyle}><LockOutlined/></Avatar>
                 <h2>Login</h2></Grid> 
-                <TextField label= 'Email' placeholder='Enter your email' fullWidth variant="standard"   value={email} onChange={(event) => handleEmailChange(event)} required />
-                <TextField label= 'Password' placeholder='Enter your password' type="password" variant="standard" fullWidth value={password}  onChange={(event) => handlePasswordChange(event)} required />
-                <Button onClick={(event) => handleLoginSubmit(event)} variant="contained" type='submit' sx={{backgroundColor: '#e14f4f' }}>Login</Button>
+                <TextField label= 'Email' color="warning" placeholder='Enter your email' fullWidth variant="standard"   value={email} onChange={(event) => handleEmailChange(event)} required />
+                <TextField label= 'Password' color="warning" placeholder='Enter your password' type="password" variant="standard" fullWidth value={password}  onChange={(event) => handlePasswordChange(event)} required />
+                <StyledButton onClick={(event) => handleLoginSubmit(event)} variant="contained" type='submit'>Login</StyledButton>
                 <Link to="/signup" className="register"> Don't have an account yet?</Link>
             </Paper>
         </Grid>
+        </div>
     )
 }
+
+const StyledButton = styled(Button)`
+  color: white;
+  background-color: #e14f4f;
+
+  &:hover {
+    background-color: #c9442cc5;
+  }
+`;

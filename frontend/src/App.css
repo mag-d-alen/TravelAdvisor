@@ -15,5 +15,18 @@
 
 .search{
   z-index: 5;
-  
+
+}
+
+.registration{
+  background-color: #e14f4f;
+  height: 100vh;
+  padding: 5vh;
+}
+
+.search-result:hover{
+  color: #e14f4f;
+  cursor: pointer;
+
+
 }

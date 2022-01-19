@@ -3,6 +3,7 @@ import { Grid, Paper, Avatar, TextField, Button } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import styled from '@emotion/styled';
 
 
 
@@ -74,23 +75,32 @@ export default function Signup() {
     setVerifyPassword("");
   }
     return (
-        <Grid>
+        <Grid className="registration">
             <Paper elevation={10} style={paperStyle}>
                 <Grid align='center'><Avatar style={avatarStyle}><AddCircleIcon/></Avatar>
                 <h2>Signup</h2></Grid> 
-                <TextField label= 'First Name' placeholder='Enter your first-name' fullWidth variant="standard" onChange={(event) => handleNameChange(event)}
+                <TextField label= 'First Name' color="warning" placeholder='Enter your first-name' fullWidth variant="standard" onChange={(event) => handleNameChange(event)}
                 value={name} required />
-                <TextField label= 'Last Name' placeholder='Enter your last-name' fullWidth variant="standard" onChange={(event) => handleLastNameChange(event)}
+                <TextField label= 'Last Name' color="warning" placeholder='Enter your last-name' fullWidth variant="standard" onChange={(event) => handleLastNameChange(event)}
                 value={lastName} required />
-                <TextField label= 'Email' placeholder='Enter your email' fullWidth variant="standard" onChange={(event) => handleEmailChange(event)}
+                <TextField label= 'Email'  color="warning" placeholder='Enter your email' fullWidth variant="standard" onChange={(event) => handleEmailChange(event)}
                 value={email} required />
-                <TextField label= 'Password' placeholder='Enter your password' type="password" variant="standard" onChange={(event) => handlePasswordChange(event)}
+                <TextField label= 'Password' color="warning" placeholder='Enter your password' type="password" variant="standard" onChange={(event) => handlePasswordChange(event)}
                 value={password} fullWidth required />
-                <TextField label= 'Verify Password' placeholder='Verify your password' type="password" variant="standard" fullWidth onChange={(event) => handleVerifyPassword(event)}
+                <TextField label= 'Verify Password' color="warning" placeholder='Verify your password' type="password" variant="standard" fullWidth onChange={(event) => handleVerifyPassword(event)}
                 value={verifyPassword} required />
-                <Button onClick={(event) => handleSignupSubmit(event)} variant="contained" type='submit' sx={{backgroundColor: '#e14f4f' }}>Signup</Button>
+                <StyledButton onClick={(event) => handleSignupSubmit(event)} variant="contained" type='submit' >Signup</StyledButton>
                 <Link to="/login" className="register"> Already have an account?</Link>
             </Paper>
         </Grid>
     )
 }
+
+const StyledButton = styled(Button)`
+  color: white;
+  background-color: #e14f4f;
+
+  &:hover {
+    background-color: #c9442cc5;
+  }
+`;
