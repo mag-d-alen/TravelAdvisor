@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import FullArticleModal from './FullArticleModal';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
 import {
   Card,
   Typography,
@@ -10,7 +9,6 @@ import {
   IconButton,
   CardContent,
   Button,
-  Modal,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -29,8 +27,8 @@ export default function ArticleCard(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const handleOpenFullArticle = () => {
-    setOpenFullArticle(true);
+  const handleShowFullArticle = (status) => {
+    setOpenFullArticle(status);
   };
 
   return (
@@ -38,8 +36,9 @@ export default function ArticleCard(props) {
       <StyledCard>
         <StyledDiv>
           <img component='img' height='80' alt='press_photo' src={urlToImage} />
-
-          <StyledButton onClick={handleOpenFullArticle}>Read More</StyledButton>
+          <StyledButton onClick={() => handleShowFullArticle(true)}>
+            Read More
+          </StyledButton>
         </StyledDiv>
         <CardContent>
           <Typography gutterBottom component='div'>
@@ -69,7 +68,12 @@ export default function ArticleCard(props) {
         </Collapse>
       </StyledCard>
       {openFullArticle && (
-        <FullArticleModal open={openFullArticle} url={url} title={title} />
+        <FullArticleModal
+          open={openFullArticle}
+          url={url}
+          title={title}
+          handleShowFullArticle={handleShowFullArticle}
+        />
       )}
     </>
   );

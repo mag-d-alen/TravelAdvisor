@@ -8,17 +8,15 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-import axios from "axios";
+import axios from 'axios';
 import AuthContext from '../context/AuthContext';
-
-
 
 export default function CountryCard(props) {
   const { name, summary, iataCode, risk } = props;
   const uri = `https://countryflagsapi.com/png/${iataCode}`;
   const token = JSON.parse(localStorage.getItem('token'));
-   const { setSavedCountriesArray, savedCountriesArray } = useContext(AuthContext);
-  
+  const { setSavedCountriesArray, savedCountriesArray } =
+    useContext(AuthContext);
 
   const handleUnsaveCountry = () => {
     const isSaved = false;
@@ -26,25 +24,30 @@ export default function CountryCard(props) {
       iataCode: iataCode,
     };
     const headerConfig = {
-      "auth-token": `${token}`,
+      'auth-token': `${token}`,
     };
-    const url = "http://localhost:8000/api/home/save";
+    const url = 'http://localhost:8000/api/home/save';
     axios
-      .put(url, {
-        savedCountry: removedCountry,
-        isSaved: isSaved
-      },{headers: headerConfig} )
+      .put(
+        url,
+        {
+          savedCountry: removedCountry,
+          isSaved: isSaved,
+        },
+        { headers: headerConfig }
+      )
       .catch((err) => {
-       alert("couldn't remove the country");
-       return
+        alert("couldn't remove the country");
+        return;
       });
-      const updatedCountryArray = [...savedCountriesArray].filter((country)=> country.iataCode != removedCountry.iataCode)
+    const updatedCountryArray = [...savedCountriesArray].filter(
+      (country) => country.iataCode != removedCountry.iataCode
+    );
     setSavedCountriesArray(updatedCountryArray);
   };
 
-
   return (
-    <Card sx={{ width: 345, maxHeight:500, overflow: 'auto', margin: "1rem" }}>
+    <Card sx={{ width: 345, maxHeight: 500, overflow: 'auto', margin: '1rem' }}>
       <CardMedia component='img' height='200' alt={name} src={uri} />
       <CardContent>
         <StyledCard>
@@ -60,11 +63,22 @@ export default function CountryCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={handleUnsaveCountry} size='small'>Remove from favorites</Button>
+        <StyledButton onClick={handleUnsaveCountry} size='small'>
+          Remove from favorites
+        </StyledButton>
       </CardActions>
     </Card>
   );
 }
 const StyledCard = styled('div')`
   text-transform: uppercase;
+`;
+const StyledButton = styled(Button)`
+  margin: 2rem auto;
+  color: white;
+  background-color: #ff6347d8;
+
+  &:hover {
+    background-color: #c9442cc5;
+  }
 `;

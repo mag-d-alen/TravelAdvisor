@@ -1,15 +1,20 @@
 /** @format */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-const NEWS_KEY = process.env.REACT_APP_NEWS_KEY;
-const newsUri = `https://newsapi.org/v2/top-headlines?language=en&q=covid&sortBy=popularity&apiKey=${NEWS_KEY}`;
+const url = 'http://localhost:8000/api/api/news';
 
 export default function useGetNews() {
   const [news, setNews] = useState();
+  const token = JSON.parse(localStorage.getItem('token'));
+
+  const headerConfig = {
+    'auth-token': `${token}`,
+  };
   const fetchNews = async () => {
     try {
-      const result = await axios.get(newsUri);
-
+      const result = await axios.get(url, {
+        headers: headerConfig,
+      });
       setNews(result.data.articles);
     } catch (error) {
       console.log(error);
@@ -19,6 +24,6 @@ export default function useGetNews() {
     fetchNews();
     return () => fetchNews();
   }, []);
-  console.log(news);
+
   return news;
 }
