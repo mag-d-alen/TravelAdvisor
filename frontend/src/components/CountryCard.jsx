@@ -41,7 +41,7 @@ export default function CountryCard(props) {
         return;
       });
     const updatedCountryArray = [...savedCountriesArray].filter(
-      (country) => country.iataCode != removedCountry.iataCode
+      (country) => country.iataCode !== removedCountry.iataCode
     );
     setSavedCountriesArray(updatedCountryArray);
   };

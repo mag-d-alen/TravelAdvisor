@@ -8,16 +8,8 @@ import styled from '@emotion/styled';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LogoutIcon from '@mui/icons-material/Logout';
-const useStyles = makeStyles(() => ({
-  title: {
-    padding: '0.5rem',
-    flexGrow: 1,
-    textTransform: 'uppercase',
-  },
-}));
 
 export default function Navbar() {
-  const classes = useStyles();
   const navigation = useNavigate();
   const handleNavigation = (route) => {
     navigation(route);
@@ -26,13 +18,14 @@ export default function Navbar() {
   return (
     <AppBar position='static' style={{ background: '#ff6347e3' }}>
       <Toolbar>
+        <StyledTitle variant='h4'>Travel Planner</StyledTitle>
+        <StyledButton onClick={() => handleNavigation('/')}>
+          <HomeIcon />
+        </StyledButton>
+        <StyledButton onClick={() => handleNavigation('/profile')}>
+          <AccountBoxIcon />
+        </StyledButton>
 
-        <Typography variant='h4' className={classes.title}>
-          Travel Planner
-        </Typography>
-        <StyledButton onClick={() => handleNavigation('/')}><HomeIcon /></StyledButton>
-        <StyledButton onClick={() => handleNavigation('/profile')}><AccountBoxIcon/></StyledButton>
-        
         <StyledButton onClick={() => handleNavigation('/login')}>
           <LogoutIcon />
         </StyledButton>
@@ -47,4 +40,12 @@ const StyledButton = styled(Button)`
   &:hover {
     background-color: #c9442cc5;
   }
+`;
+const StyledTitle = styled(Typography)`
+  color: white;
+  background-color: inherit;
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+  padding: 0.5rem;
+  margin-right: auto;
 `;

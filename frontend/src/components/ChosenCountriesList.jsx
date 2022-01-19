@@ -3,16 +3,22 @@
 import React, { useContext } from 'react';
 import CountryCard from './CountryCard';
 import AuthContext from '../context/AuthContext';
-import Grid from "@mui/material/Grid";
-
+import { Typography } from '@mui/material';
+import styled from '@emotion/styled';
 
 export default function ChosenCountriesList() {
-  const { savedCountriesArray, setSavedCountriesArray } = useContext(AuthContext);
-
+  const { savedCountriesArray } = useContext(AuthContext);
   return (
-    <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly", flexWrap: "wrap"}}>
-      {/* <Grid container spacing={2} item xs={3}> */}
-        {savedCountriesArray.map((country) => {
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        flexWrap: 'wrap',
+      }}
+    >
+      {savedCountriesArray.length > 0 ? (
+        savedCountriesArray.map((country) => {
           const { name, summary, iataCode, risk } = country;
           return (
             <CountryCard
@@ -23,8 +29,15 @@ export default function ChosenCountriesList() {
               risk={risk}
             />
           );
-        })}
-      {/* </Grid> */}
+        })
+      ) : (
+        <StyledTitle component='h3'>...will appear here</StyledTitle>
+      )}
     </div>
   );
 }
+const StyledTitle = styled(Typography)`
+  text-transform: uppercase;
+  font-family: 'Lato' sans-serif;
+  padding: 0.5rem;
+`;
