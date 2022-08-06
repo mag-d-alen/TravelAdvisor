@@ -29,7 +29,7 @@ export default function CountryProfileModal(props) {
           return setCountryAdded(true);
         }
       });
-  }, []);
+  }, [area.iataCode, savedCountriesArray]);
 
   const handleSaveCountry = () => {
     const isSaved = true;
