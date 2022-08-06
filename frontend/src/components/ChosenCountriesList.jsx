@@ -2,7 +2,7 @@
 
 import React, { useContext } from 'react';
 import CountryCard from './CountryCard';
-import AuthContext from '../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import { Typography } from '@mui/material';
 import styled from '@emotion/styled';
 

@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useContext, useState, useEffect } from 'react';
-import AuthContext from '../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import { Modal, Box, Typography, Button, Alert } from '@mui/material';
 import styled from '@emotion/styled';
 import axios from 'axios';
@@ -20,16 +20,8 @@ export default function CountryProfileModal(props) {
     summary,
     diseaseCases,
     hotspots,
+    areaAccessRestriction,
   } = info;
-
-  useEffect(() => {
-    savedCountriesArray.length > 0 &&
-      savedCountriesArray.forEach((country) => {
-        if (country.iataCode === area.iataCode) {
-          return setCountryAdded(true);
-        }
-      });
-  }, [area.iataCode, savedCountriesArray]);
 
   const handleSaveCountry = () => {
     const isSaved = true;
@@ -88,7 +80,7 @@ export default function CountryProfileModal(props) {
         <Typography id='modal-modal-description' sx={{ mt: 2 }}>
           {summary?.replace(/(<([^>]+)>)/gi, '')}
         </Typography>
-        {diseaseCases && (
+        {diseaseCases ? (
           <Typography id='modal-modal-description' sx={{ mt: 2 }}>
             Reported cases on {diseaseCases.date}: {diseaseCases.confirmed},
             deaths: {diseaseCases.deaths}
@@ -98,16 +90,28 @@ export default function CountryProfileModal(props) {
               </Typography>
             )}
           </Typography>
-        )}
-        {areaRestrictions.map((restriction) => (
+        ) : null}
+        {areaRestrictions
+          ? areaRestrictions.map((restriction) => (
+              <Typography
+                key={Math.random()}
+                id='modal-modal-description'
+                sx={{ mt: 2 }}
+              >
+                {restriction.date}{' '}
+                {restriction.text?.replace(/(<([^>]+)>)/gi, '')}
+              </Typography>
+            ))
+          : null}
+        {areaAccessRestriction ? (
           <Typography
             key={Math.random()}
             id='modal-modal-description'
             sx={{ mt: 2 }}
           >
-            {restriction.date} {restriction.text?.replace(/(<([^>]+)>)/gi, '')}
+            {areaAccessRestriction.entry?.text?.replace(/(<([^>]+)>)/gi, '')}
           </Typography>
-        ))}
+        ) : null}
       </StyledBox>
     </Modal>
   );

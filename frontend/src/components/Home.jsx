@@ -4,7 +4,7 @@ import React from 'react';
 import Map from './Map';
 import Navbar from './Navbar';
 import NewsFeed from './NewsFeed';
-import SearchCountryByName from './SearchCountryByName';
+import { SearchCountryByName } from './SearchCountryByName';
 import { Box } from '@mui/material';
 import styled from '@emotion/styled';
 
@@ -26,7 +26,8 @@ export default function Home() {
 }
 const StyledWrapper = styled(Box)`
   display: flex;
-  height: 100;
+  height: 100%;
+  overflow: auto;
 `;
 const StyledBox = styled(Box)`
   height: 100%;

@@ -1,9 +1,8 @@
 /** @format */
 
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AuthContext from './context/AuthContext';
-import Navbar from './components/Navbar';
+import { AuthContext } from './context/AuthContext';
 import Home from './components/Home';
 import './App.css';
 import Login from './components/Login';
@@ -17,11 +16,10 @@ function App() {
     <AuthContext.Provider
       value={{
         setSavedCountriesArray: setSavedCountriesArray,
-        savedCountriesArray: savedCountriesArray
+        savedCountriesArray: savedCountriesArray,
       }}
     >
       <BrowserRouter>
-        {/* <Navbar /> */}
         <Routes>
           <Route element={<ProtectedRoutes />}>
             <Route exact path='/' element={<Home />} />

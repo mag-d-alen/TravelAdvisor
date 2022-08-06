@@ -1,21 +1,16 @@
 /** @format */
 
-import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Modal, Box } from '@mui/material';
 import Iframe from 'react-iframe';
 
 export default function FullArticleModal(props) {
-  const { title, url, open, handleShowFullArticle } = props;
-  const [isOpen, setIsOpen] = useState(open);
-  const handleClose = () => {
-    handleShowFullArticle(false);
-  };
+  const { title, url, open, closeModal } = props;
 
   return (
     <Modal
-      open={isOpen}
-      onClose={handleClose}
+      open={open}
+      onClose={closeModal}
       aria-labelledby='modal-modal-title'
       aria-describedby='modal-modal-description'
     >

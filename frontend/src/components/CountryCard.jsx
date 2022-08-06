@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useContext } from 'react';
-import { Box, Typography, Paper } from '@mui/material';
+import { Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -9,7 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import axios from 'axios';
-import AuthContext from '../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 
 export default function CountryCard(props) {
   const { name, summary, iataCode, risk } = props;

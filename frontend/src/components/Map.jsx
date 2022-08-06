@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useLocation from '../hooks/useLocation';
 import { MapContainer, Popup, Marker, GeoJSON } from 'react-leaflet';
 import countries from '../data/countries.json';
@@ -8,6 +8,13 @@ import getCountryISO2 from 'country-iso-3-to-2';
 import axios from 'axios';
 import CountryProfileModal from './CountryProfileModal';
 import styled from '@emotion/styled';
+
+const countryStyle = {
+  fillColor: 'tomato',
+  fillOpacity: 0.5,
+  color: 'black',
+  weight: 0.5,
+};
 
 export default function Map() {
   const [latitude, longitude] = useLocation();
@@ -19,7 +26,6 @@ export default function Map() {
     try {
       const countryData = await axios.get(`${uri}/${code}`);
       setCountryCovidInfo(countryData.data);
-      setOpen(true);
     } catch (error) {
       console.log(error);
     }
@@ -41,12 +47,9 @@ export default function Map() {
     setOpen(false);
   };
 
-  const countryStyle = {
-    fillColor: 'tomato',
-    fillOpacity: 0.5,
-    color: 'black',
-    weight: 0.5,
-  };
+  useEffect(() => {
+    countryCovidInfo && setOpen(true);
+  }, [countryCovidInfo]);
 
   return (
     <>

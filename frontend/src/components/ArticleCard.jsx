@@ -27,8 +27,8 @@ export default function ArticleCard(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const handleShowFullArticle = (status) => {
-    setOpenFullArticle(status);
+  const closeModal = () => {
+    setOpenFullArticle(false);
   };
 
   return (
@@ -36,7 +36,7 @@ export default function ArticleCard(props) {
       <StyledCard>
         <StyledDiv>
           <img component='img' height='80' alt='press_photo' src={urlToImage} />
-          <StyledButton onClick={() => handleShowFullArticle(true)}>
+          <StyledButton onClick={() => setOpenFullArticle(true)}>
             Read More
           </StyledButton>
         </StyledDiv>
@@ -72,7 +72,7 @@ export default function ArticleCard(props) {
           open={openFullArticle}
           url={url}
           title={title}
-          handleShowFullArticle={handleShowFullArticle}
+          closeModal={closeModal}
         />
       )}
     </>

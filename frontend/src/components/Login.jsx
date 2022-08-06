@@ -5,7 +5,7 @@ import { Grid, Paper, Avatar, TextField, Button } from '@mui/material';
 import LockOutlined from '@mui/icons-material/LockOutlined';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import AuthContext from '../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import styled from '@emotion/styled';
 
 const paperStyle = {
