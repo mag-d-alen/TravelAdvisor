@@ -1,11 +1,11 @@
 /** @format */
 
+const dotenv = require('dotenv');
+dotenv.config();
 const router = require('express').Router();
 const verify = require('./verifyToken');
-const dotenv = require("dotenv");
-dotenv.config();
 const NEWS_KEY = process.env.NEWS_KEY;
-const newsUri = `https://newsapi.org/v2/top-headlines?language=en&q=covid&sortBy=popularity&apiKey=45eef3aec94b4f2c9adc74833617e141`;
+const newsUri = `https://newsapi.org/v2/top-headlines?language=en&q=covid&sortBy=popularity&apiKey=${NEWS_KEY}`;
 const countryUri =
   'https://test.api.amadeus.com/v1/duty-of-care/diseases/covid19-area-report?countryCode=';
 const tokenUri = 'https://test.api.amadeus.com/v1/security/oauth2/token';
