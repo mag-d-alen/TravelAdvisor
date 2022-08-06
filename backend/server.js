@@ -9,7 +9,6 @@ const cors = require('cors');
 ///Import Routes Here
 const authRoute = require('./routes/auth');
 const homeRoute = require('./routes/home');
-const profileRoute = require('./routes/profile');
 const apiRoute = require('./routes/api');
 
 dotenv.config();
